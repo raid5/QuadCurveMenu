@@ -19,6 +19,8 @@ static CGFloat const kQuadCurveMenuDefaultRotateAngle = 0.0;
 static CGFloat const kQuadCurveMenuDefaultMenuWholeAngle = M_PI * 2;
 static CGFloat const kQuadCurveMenuDefaultExpandAnimationDuration = 0.5f;
 static CGFloat const kQuadCurveMenuDefaultCloseAnimationDuration = 0.5f;
+static CGFloat const kQuadCurveMenuDefaultExpandRotation = M_PI;
+static CGFloat const kQuadCurveMenuDefaultCloseRotation = M_PI * 2;
 
 
 static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float angle)
@@ -39,7 +41,7 @@ static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float an
 
 @implementation QuadCurveMenu
 
-@synthesize nearRadius, endRadius, farRadius, timeOffset, rotateAngle, menuWholeAngle, startPoint, expandAnimationDuration, closeAnimationDuration;
+@synthesize nearRadius, endRadius, farRadius, timeOffset, rotateAngle, menuWholeAngle, startPoint, expandAnimationDuration, closeAnimationDuration, expandRotation, closeRotation;
 @synthesize expanding = _expanding;
 @synthesize delegate = _delegate;
 @synthesize menusArray = _menusArray;
@@ -60,6 +62,8 @@ static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float an
 		self.startPoint = CGPointMake(kQuadCurveMenuDefaultStartPointX, kQuadCurveMenuDefaultStartPointY);
         self.expandAnimationDuration = kQuadCurveMenuDefaultExpandAnimationDuration;
         self.closeAnimationDuration = kQuadCurveMenuDefaultCloseAnimationDuration;
+        self.expandRotation = kQuadCurveMenuDefaultExpandRotation;
+        self.closeRotation = kQuadCurveMenuDefaultCloseRotation;
         
         // layout menus
         self.menusArray = aMenusArray;
@@ -276,7 +280,7 @@ static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float an
     QuadCurveMenuItem *item = (QuadCurveMenuItem *)[self viewWithTag:tag];
     
     CAKeyframeAnimation *rotateAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.rotation.z"];
-    rotateAnimation.values = [NSArray arrayWithObjects:[NSNumber numberWithFloat:M_PI],[NSNumber numberWithFloat:0.0f], nil];
+    rotateAnimation.values = [NSArray arrayWithObjects:[NSNumber numberWithFloat:expandRotation],[NSNumber numberWithFloat:0.0f], nil];
     rotateAnimation.duration = expandAnimationDuration;
     rotateAnimation.keyTimes = [NSArray arrayWithObjects:
                                 [NSNumber numberWithFloat:.3], 
@@ -318,7 +322,7 @@ static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float an
      QuadCurveMenuItem *item = (QuadCurveMenuItem *)[self viewWithTag:tag];
     
     CAKeyframeAnimation *rotateAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.rotation.z"];
-    rotateAnimation.values = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0f],[NSNumber numberWithFloat:M_PI * 2],[NSNumber numberWithFloat:0.0f], nil];
+    rotateAnimation.values = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0f],[NSNumber numberWithFloat:closeRotation],[NSNumber numberWithFloat:0.0f], nil];
     rotateAnimation.duration = closeAnimationDuration;
     rotateAnimation.keyTimes = [NSArray arrayWithObjects:
                                 [NSNumber numberWithFloat:.0], 
