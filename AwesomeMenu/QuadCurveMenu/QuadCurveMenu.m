@@ -125,7 +125,13 @@ static CGPoint RotateCGPointAroundCenter(CGPoint point, CGPoint center, float an
 	return _addButton.contentImageView.highlightedImage;
 }
 
+- (void)expandNow {
+    self.expanding = YES;
+}
 
+- (void)closeNow {
+    self.expanding = NO;
+}
                                
 #pragma mark - UIView's methods
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event

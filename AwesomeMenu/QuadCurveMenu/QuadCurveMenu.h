@@ -44,6 +44,8 @@
 @property (nonatomic, assign) CGFloat closeRotation;
 
 - (id)initWithFrame:(CGRect)frame menus:(NSArray *)aMenusArray;
+- (void)expandNow;
+- (void)closeNow;
 @end
 
 @protocol QuadCurveMenuDelegate <NSObject>
